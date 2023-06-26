@@ -9,8 +9,8 @@ class Client(models.Model):
     last_name = models.CharField(max_length=150, verbose_name='фамилия', **NULLABLE)
     email = models.EmailField(max_length=150, verbose_name='почта', **NULLABLE)
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
-    created_by = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='кем создан',
-                                   related_name='client')
+    # created_by = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='кем создан',
+    #                                related_name='client')
     is_active = models.BooleanField(default=True, verbose_name='активен')
 
     def __str__(self):
@@ -78,7 +78,7 @@ class Message(models.Model):
     subject = models.CharField(max_length=254, verbose_name='Тема')
     message = models.TextField(verbose_name='Сообщение')
     date_of_creation = models.DateTimeField(default=now, verbose_name='дата создания')
-    mailing = models.ForeignKe(Mailing, verbose_name='рассылка', on_delete=models.CASCADE)
+    mailing = models.ForeignKey(Mailing, verbose_name='рассылка', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.subject
