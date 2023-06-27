@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    {#    <h1>Главная страница</h1>#}
+    {##}
+    {#    <p>Количество рассылок всего: {{ total_mailings }}</p>#}
+    {##}
+    {#    <p>Количество активных рассылок: {{ active_mailing }}</p>#}
+    {##}
+    {#    <p>Количество уникальных клиентов для рассылок: {{ unique_clients }}</p>#}
+    {##}
+    {#    <ul>#}
+
+
+    <div class="container marketing">
+        <div class="content text-center">
+            <div class="pricing-header  mx-auto text-center">
+                <h1 class="display-4">Количество рассылок всего: {{ total_mailings }}</h1></div>
+
+                <h1 class="display-4">Количество активных рассылок: {{ active_mailing }}</h1></div>
+            <div class="pricing-header  mx-auto text-center">
+
+                 <h1 class="display-4">Количество уникальных клиентов для рассылок: {{ unique_clients }}</h1></div>
+        </div>
+
+    <div class="container marketing">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Случайные статьи из блога</h1>
+
+        </div>
+        <div class="row">
+            {% for post in random_post %}
+                {% include 'includes/inc_blog_card_post.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

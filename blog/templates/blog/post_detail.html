@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load mediapath %}
+{% block content %}
+    <div class="col-lg-12 m-5">
+    <div class="card text-center">
+        <h3 class="card-header">
+            {{ object.title | title }}
+        </h3>
+        <div class="card-body">
+{#             <img class="rounded-circle"#}
+             <img class="img-fluid"
+                    {% if object.preview %}
+                 src="{{ object.preview | media_path }}"
+                  {% endif %}
+                  {% if object.preview == 'posts/nophoto.png' %}
+                  alt="Упс." width="140" height="140"
+
+                    {% endif %}
+             >
+            <div class="content m-4">
+                <p class="card-text t-2">{{ object.content }}</p>
+            </div>
+            <div class="content text-right">
+                <a href="{% url 'blog:index' %}" class="btn btn-dark text-right btn-sm">Назад</a>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-left">
+            <div class="container">
+                <div class="row align-items-start">
+                    <div class="col">
+                        {{ object.date_of_creation }}
+                    </div>
+                    <div class="col text-right">
+                         &#128065;&#65039; {{ object.number_of_views }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

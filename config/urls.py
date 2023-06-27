@@ -21,6 +21,7 @@ from django.urls import path, include
 from config import settings
 
 urlpatterns = [
+                  path('/', include('blog.urls', namespace='blog')),
                   path('admin/', admin.site.urls),
                   path('mailing/', include('mailing.urls', namespace='mailing')),
                   path('users/', include('users.urls', namespace='users')),

@@ -1,0 +1,40 @@
+{% load mediapath %}
+<div class="col-lg-12 m-2">
+    <div class="card text-center">
+        <h3 class="card-header">
+            {{ post.title | title }}
+        </h3>
+        <div class="card-body">
+            <img class="img-fluid "
+                    {% if post.preview %}
+                 src="{{ post.preview | media_path }}"
+                 alt="Упс." width="140" height="140"
+
+                    {% endif %}
+                    {% if post.preview == 'posts/nophoto.png' %}
+                 alt="Упс." width="140" height="140"
+                    {% endif %}
+            >
+            <div class="content m-2">
+                <p class="card-text t-2">{{ post.content | truncatechars:150 }}</p>
+            </div>
+            <div class="content text-right">
+
+                <a href="{% url 'blog:post_detail' post.pk %}" class="btn btn-dark text-right btn-sm">Читать далее</a>
+
+            </div>
+        </div>
+        <div class="card-footer text-muted text-left">
+            <div class="container">
+                <div class="row align-items-start">
+                    <div class="col">
+                        {{ post.date_of_creation }}
+                    </div>
+                    <div class="col text-right">
+                        &#128065;&#65039; {{ post.number_of_views }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
