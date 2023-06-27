@@ -28,7 +28,7 @@ class MyLoginView(LoginView):
 class ProfileUpdateView(UpdateView):
     model = User
     form_class = UserForm
-    success_url = reverse_lazy('mailing:mailing_list')
+    success_url = reverse_lazy('blog:index')
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -74,7 +74,7 @@ class EmailVerify(View):
             user.is_email_verified = True
             user.save()
             login(request, user)
-            return redirect('mailing:mailing_list')
+            return redirect('blog:index')
         else:
             return redirect('users:invalid_verify')
 
@@ -116,6 +116,9 @@ class UserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'users/user_list.html'
     context_object_name = 'users'
     login_url = reverse_lazy('users:user_list')
+    extra_context = {
+        'title': 'Список пользователей'
+    }
 
     def test_func(self):
         manager = self.request.user.has_perm(
@@ -129,10 +132,6 @@ class UserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
             return True
         else:
             raise Http404()
-
-    def handle_no_permission(self):
-        raise Http404("Страница не найдена")
-        # return redirect('mailing:client_list')
 
     def post(self, request, *args, **kwargs):
         user_id = request.POST.get('user_id')

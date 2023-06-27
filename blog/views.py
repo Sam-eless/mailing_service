@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
-
+from django.core.cache import cache
 from blog.models import Post
 from mailing.models import Mailing
 
@@ -14,12 +14,23 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    # template_name = 'post_detail.html'
 
     def get_object(self, queryset=None):
-        post = super().get_object(queryset=queryset)
-        post.increment_count_view()
+        post_id = self.kwargs['pk']
+        cache_key = f'post_{post_id}'
+        post = cache.get(cache_key)
+
+        if not post:
+            post = super().get_object(queryset=queryset)
+            post.increment_count_view()
+            cache.set(cache_key, post)
+
         return post
+
+    # def get_object(self, queryset=None):
+    #     post = super().get_object(queryset=queryset)
+    #     post.increment_count_view()
+    #     return post
 
 
 
@@ -42,5 +53,6 @@ def index(request):
         'active_mailing': active_mailing,
         'unique_clients': unique_clients,
         'random_post': random_post,
+        'title': 'Главная страница'
     }
     return render(request, 'index.html', context=context)

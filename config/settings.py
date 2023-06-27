@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_rq',
+    'django_rq_scheduler',
     'mailing',
     'users',
     'blog',
@@ -147,12 +149,23 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/mailing/'
 LOGOUT_REDIRECT_URL = '/mailing/'
 
-# CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#         "LOCATION": os.getenv('CACHE_LOCATION'),
-#     }
-# }
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv('CACHE_LOCATION'),
+    }
+}
 
 DJANGO_SETTINGS_MODULE = "mailing.settings"
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    },
+}
+SCHEDULER_AUTOSTART = True
+
+

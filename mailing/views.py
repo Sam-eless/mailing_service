@@ -21,7 +21,7 @@ class MailingListView(ListView):
         # user1 = User.objects.get(email='iaiznura@gmail.com')
         # permissions = user1.get_all_permissions()
         # print(permissions)
-        manager = self.request.user.has_perm("mailing.can_view_any_mailings") and  self.request.user.is_authenticated
+        manager = self.request.user.has_perm("mailing.can_view_any_mailings") and self.request.user.is_authenticated
         if manager:
             return queryset
         else:
