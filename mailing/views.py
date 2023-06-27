@@ -10,7 +10,7 @@ from users.models import User
 
 
 # Create your views here.
-class MailingListView(ListView):
+class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing
     extra_context = {
         'title': 'Список рассылок'
@@ -30,7 +30,7 @@ class MailingListView(ListView):
             return queryset
 
 
-class MailingDetailView(DetailView):
+class MailingDetailView(LoginRequiredMixin, DetailView):
     model = Mailing
 
     def get_context_data(self, **kwargs):
@@ -101,7 +101,6 @@ class MailingUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             class_form = MailingForm
         return class_form
 
-
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         MessageFormset = inlineformset_factory(Mailing, Message, form=MessageForm, extra=1, max_num=1)
@@ -141,20 +140,18 @@ class MailingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == mailing.owner
 
 
-
-
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     model = Client
     extra_context = {
         'title': 'Список клиентов'
     }
 
 
-class ClientDetailView(DetailView):
+class ClientDetailView(LoginRequiredMixin, DetailView):
     model = Client
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     fields = ('first_name', 'last_name', 'email', 'comment',)
     # form_class = ClientForm
@@ -166,7 +163,8 @@ class ClientCreateView(CreateView):
     def handle_no_permission(self):
         raise PermissionDenied("Вы не являетесь автором этого продукта.")
 
-class ClientUpdateView(UpdateView):
+
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
     model = Client
     # fields = ('first_name', 'last_name', 'email', 'comment',)
     form_class = ClientForm
@@ -177,6 +175,6 @@ class ClientUpdateView(UpdateView):
     }
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('mailing:mailing_list')
