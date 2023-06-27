@@ -7,9 +7,9 @@ from mailing.models import Mailing, Client, Message, Attempt
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('title', 'scheduled_time', 'status', 'date_of_creation', 'frequency',)
+    list_display = ('title', 'start_date', 'end_date', 'status', 'date_of_creation', 'frequency',)
     search_fields = ('title', 'status',)
-    list_filter = ('status', 'frequency', 'scheduled_time')
+    list_filter = ('status', 'frequency',)
 
 
 @admin.register(Client)

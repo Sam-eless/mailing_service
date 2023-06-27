@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mailing',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -141,9 +142,16 @@ EMAIL_USE_SSL = True
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
 
-# AUTH_USER_MODEL = 'users.User'
-# LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/'
+# CRONJOBS = [
+#     ('0 0 * * *', 'mailing.services.cron.scheduled_mailing', '>> /log/cron.log')
+# ]
+
+
+
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/mailing/'
+LOGOUT_REDIRECT_URL = '/mailing/'
 
 
 # CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
@@ -153,3 +161,5 @@ DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
 #         "LOCATION": os.getenv('CACHE_LOCATION'),
 #     }
 # }
+
+DJANGO_SETTINGS_MODULE="mailing.settings"

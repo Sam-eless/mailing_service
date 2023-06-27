@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                <div class="content mb-2">{% if not user.is_email_verified %} <a>  Письмо для завершения регистрации будет направлено на ваш адрес </a> {% else %}
+
+                            {% endif %}</div>
+                    {% if user.is_authenticated %}
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-success">Регистрация</button>
+                    {% endif %}
+                      <a href="{% url 'users:password_reset' %}" class="btn btn-dark text-right btn-sm mt-2">Восстановить пароль</a>
+
+                </form>
+            </div>
+            <div class="card-footer"></div>
+
+
+        </div>
+
+
+    </div>
+
+{% endblock %}

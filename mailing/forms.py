@@ -14,7 +14,8 @@ class FormStyleMixin:
 class MailingForm(FormStyleMixin, forms.ModelForm):
     class Meta:
         model = Mailing
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('date_of_creation',)
 
 
 class MessageForm(FormStyleMixin, forms.ModelForm):

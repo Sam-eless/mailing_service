@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="content mb-2"> Письмо для завершения регистрации направлено на ваш адрес</div>
+                <a href="{% url 'mailing:mailing_list' %}" class="btn btn-dark text-right btn-sm mt-2">К рассылкам</a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+{% endblock %}

@@ -9,8 +9,7 @@ class Client(models.Model):
     last_name = models.CharField(max_length=150, verbose_name='фамилия', **NULLABLE)
     email = models.EmailField(max_length=150, verbose_name='почта', **NULLABLE)
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
-    # created_by = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='кем создан',
-    #                                related_name='client')
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='кем создан')
     is_active = models.BooleanField(default=True, verbose_name='активен')
 
     def __str__(self):
@@ -45,16 +44,13 @@ class Mailing(models.Model):
     ]
 
     date_of_creation = models.DateTimeField(default=now, verbose_name='Дата создания')
-    # scheduled_time = models.DateTimeField(default=None, verbose_name='Время рассылки')
-    scheduled_time = models.TimeField(auto_now_add=False, verbose_name='Время рассылки')
+    start_date = models.DateField(default=now, verbose_name='Дата начала рассылки')
+    end_date = models.DateField(verbose_name='Дата окончания рассылки', **NULLABLE)
     frequency = models.CharField(max_length=14, choices=FREQUENCY_CHOICES, verbose_name='Периодичность')
     status = models.CharField(max_length=50, default='Создана', choices=SELECT_STATUS, verbose_name='Статус')
     clients = models.ManyToManyField(Client)
     title = models.CharField(max_length=50, verbose_name='Название рассылки', **NULLABLE)
-
-    # message = models.ForeignKey(Message, verbose_name='сообщение', on_delete=models.CASCADE, **NULLABLE)
-
-    # owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Кем создана', **NULLABLE)
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Кем создана', **NULLABLE)
 
     def __str__(self):
         return self.title
