@@ -15,7 +15,13 @@ class MailingForm(FormStyleMixin, forms.ModelForm):
     class Meta:
         model = Mailing
         # fields = '__all__'
-        exclude = ('date_of_creation',)
+        exclude = ('date_of_creation', 'owner',)
+
+
+class MailingFormManager(FormStyleMixin, forms.ModelForm):
+    class Meta:
+        model = Mailing
+        fields = ('is_active',)
 
 
 class MessageForm(FormStyleMixin, forms.ModelForm):
@@ -31,7 +37,7 @@ class MessageDetailForm(FormStyleMixin, forms.ModelForm):
                               widget=forms.Textarea(attrs={'cols': 40, 'rows': 3, 'readonly': 'readonly'}))
 
     date_of_creation = forms.DateTimeField(label='Дата создания',
-                              widget=forms.Textarea(attrs={'cols': 40, 'rows': 1, 'readonly': 'readonly'}))
+                                           widget=forms.Textarea(attrs={'cols': 40, 'rows': 1, 'readonly': 'readonly'}))
 
     class Meta:
         model = Message

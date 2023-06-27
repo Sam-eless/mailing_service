@@ -3,6 +3,9 @@
         <nav class="ms-5">
             <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_list' %}">Рассылки</a>
             <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:client_list' %}">Клиенты</a>
+        {% if perms.users.can_view_all_user and perms.users.can_change_all_user%}
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:user_list' %}">Список пользователей</a>
+        {% endif %}
 {#            <a class="p-2 btn btn-outline-primary" href="{% url 'blog:post_list' %}">Блог</a>#}
             {% if user.is_authenticated %}
             <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>

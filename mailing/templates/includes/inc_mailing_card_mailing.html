@@ -6,12 +6,13 @@
                 <p> Статус рассылки: {{ object.status }}</p>
                 <p> Создана: {{ object.date_of_creation }}</p>
                 <p> Частота рассылки - {{ object.frequency }} </p>
-{#                {% if user.is_authenticated %}#}
+                <p> {% if object.is_active %} Рассылка активна {% else %} Рассылка неактивна {% endif %}</p>
+                {% if user.is_authenticated %}
                 <p><a href="{% url 'mailing:mailing_delete' object.pk %}" class="btn btn-danger text-center btn-sm">Удалить </a>
                 </p>
                 <p><a href="{% url 'mailing:mailing_update' object.pk %}" class="btn btn-warning text-center btn-sm">Редактировать </a>
                 </p>
-{#                {% endif %}#}
+                {% endif %}
                 <p><a class="btn btn-secondary"
                       href="{% url 'mailing:mailing_detail' object.pk %}" role="button">Подробнее &raquo;</a></p>
 

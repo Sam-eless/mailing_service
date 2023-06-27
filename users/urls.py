@@ -6,7 +6,7 @@ from django.urls import path
 
 from users.views import ProfileUpdateView, RegisterView, EmailVerify, MyLoginView, \
     CustomPasswordResetView, CustomPasswordResetDoneView, CustomPasswordResetConfirmView, \
-    CustomPasswordResetCompleteView
+    CustomPasswordResetCompleteView, UserListView
 
 app_name = UsersConfig.name
 
@@ -22,5 +22,7 @@ urlpatterns = [
     path('password-reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('password-reset/confirm/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    # path('user_list/', user_list, name='user_list'),
+    path('user_list/', UserListView.as_view(), name='user_list'),
 
 ]

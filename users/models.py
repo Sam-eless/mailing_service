@@ -1,10 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from mailing.models import NULLABLE
 from django.contrib.auth.models import Group, Permission
 
+NULLABLE = {'blank': True, 'null': True}
 
-# Create your models here.
+
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name='почта')
@@ -19,20 +19,36 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+        permissions = [
+            (
+                "can_view_all_user",
+                "Сan view user"
+            ),
+            (
+                "can_change_all_user",
+                "Сan change user"
+            )
+        ]
 
-# moderator_group, created = Group.objects.get_or_create(name='Менеджеры')
-# if created:
-#     # Создание прав доступа для группы модераторов
-#
-#     # Право на отмену публикации продукта
-#     can_unpublish_product = Permission.objects.get(codename='can_unpublish_product')
-#     moderator_group.permissions.add(can_unpublish_product)
-#
-#     # Право на изменение описания продукта
-#     can_change_description_any_product = Permission.objects.get(codename='can_change_description_any_product')
-#     moderator_group.permissions.add(can_change_description_any_product)
-#
-#     # Право на изменение категории продукта
-#     can_change_category_any_product = Permission.objects.get(codename='can_change_category_any_product')
-#     moderator_group.permissions.add(can_change_category_any_product)
 
+manager_group, created = Group.objects.get_or_create(name='Менеджеры')
+if created:
+    # Создание прав доступа для группы модераторов
+
+    # Право на просмотр всех рассылок
+    can_view_any_mailings = Permission.objects.get(codename='can_view_any_mailings')
+    manager_group.permissions.add(can_view_any_mailings)
+
+    # Право отключение рассылок
+    can_disable_mailings = Permission.objects.get(codename='can_disable_mailings')
+    manager_group.permissions.add(can_disable_mailings)
+
+    # Права управления пользователями
+    can_view_all_user = Permission.objects.get(codename='can_view_all_user')
+    manager_group.permissions.add(can_view_all_user)
+
+    can_change_all_user = Permission.objects.get(codename='can_change_all_user')
+    manager_group.permissions.add(can_change_all_user)

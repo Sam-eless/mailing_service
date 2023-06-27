@@ -7,20 +7,20 @@ from mailing.models import Mailing, Client, Message, Attempt
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ('title', 'start_date', 'end_date', 'status', 'date_of_creation', 'frequency',)
+    list_display = ('title', 'start_date', 'end_date', 'status', 'date_of_creation', 'frequency', 'owner',)
     search_fields = ('title', 'status',)
     list_filter = ('status', 'frequency',)
 
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email',)
+    list_display = ('first_name', 'last_name', 'email', 'owner',)
     # list_filter = ('first_name',)
 
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'message',)
+    list_display = ('subject', 'message', 'mailing')
     # list_filter = ('created_at',)
 
 

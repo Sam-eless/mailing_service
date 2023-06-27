@@ -1,5 +1,7 @@
 from django.db import models
+from config import settings
 from django.utils.timezone import now
+
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -9,7 +11,7 @@ class Client(models.Model):
     last_name = models.CharField(max_length=150, verbose_name='фамилия', **NULLABLE)
     email = models.EmailField(max_length=150, verbose_name='почта', **NULLABLE)
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
-    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='кем создан')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='кем создан', **NULLABLE)
     is_active = models.BooleanField(default=True, verbose_name='активен')
 
     def __str__(self):
@@ -50,7 +52,8 @@ class Mailing(models.Model):
     status = models.CharField(max_length=50, default='Создана', choices=SELECT_STATUS, verbose_name='Статус')
     clients = models.ManyToManyField(Client)
     title = models.CharField(max_length=50, verbose_name='Название рассылки', **NULLABLE)
-    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Кем создана', **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Кем создана', **NULLABLE)
+    is_active = models.BooleanField(default=True, verbose_name='активна')
 
     def __str__(self):
         return self.title
@@ -58,9 +61,15 @@ class Mailing(models.Model):
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
-        # permissions = [
-        #     ('set_mailing_status', 'Can set mailing status'),
-        # ]
+        permissions = [
+            (
+                "can_view_any_mailings",
+                "Сan view any mailings"
+            ),
+            (
+                "can_disable_mailings",
+                "Can disable mailings"
+            )]
 
 
 class Message(models.Model):
@@ -97,3 +106,4 @@ class Attempt(models.Model):
     class Meta:
         verbose_name = 'Статистика (попытка)'
         verbose_name_plural = 'Статистики (попытки)'
+
