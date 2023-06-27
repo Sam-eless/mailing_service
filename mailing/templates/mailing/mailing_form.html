@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="col-lg-12 mb-5">
+            <div class="card text-left">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-success"
+                           value=" {% if object %}Сохранить{% else %}Создать{% endif %}">
+                    <div class="content text-right">
+                        <a href="{% url 'mailing:mailing_list' %}" class="btn btn-dark btn-sm m-2">Назад</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+{#        {% if perms.mailing.change_mailing %}#}
+
+
+        <div class="col-12">
+            <div class="card text-left">
+                <div class="card-header text-center">
+                    Сообщение
+                </div>
+                <div class="card-body">
+
+                    <table class="table">
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                            <tr class="subject-form">
+                                <td>
+                                    {{ form.as_p }}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+
+                    </table>
+{#                {% endif %}#}
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

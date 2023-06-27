@@ -14,7 +14,7 @@ class Client(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='активен')
 
     def __str__(self):
-        return f'{first_name} {last_name} - {self.email}'
+        return f'{self.first_name} {self.last_name} - {self.email}'
 
     class Meta:
         verbose_name = 'Клиент'
@@ -45,14 +45,19 @@ class Mailing(models.Model):
     ]
 
     date_of_creation = models.DateTimeField(default=now, verbose_name='Дата создания')
-    scheduled_time = models.TimeField(auto_now_add=True, verbose_name='Время рассылки')
+    # scheduled_time = models.DateTimeField(default=None, verbose_name='Время рассылки')
+    scheduled_time = models.TimeField(auto_now_add=False, verbose_name='Время рассылки')
     frequency = models.CharField(max_length=14, choices=FREQUENCY_CHOICES, verbose_name='Периодичность')
     status = models.CharField(max_length=50, default='Создана', choices=SELECT_STATUS, verbose_name='Статус')
     clients = models.ManyToManyField(Client)
+    title = models.CharField(max_length=50, verbose_name='Название рассылки', **NULLABLE)
+
+    # message = models.ForeignKey(Message, verbose_name='сообщение', on_delete=models.CASCADE, **NULLABLE)
+
     # owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Кем создана', **NULLABLE)
 
     def __str__(self):
-        return self.message.subject
+        return self.title
 
     class Meta:
         verbose_name = 'Рассылка'
@@ -60,18 +65,6 @@ class Mailing(models.Model):
         # permissions = [
         #     ('set_mailing_status', 'Can set mailing status'),
         # ]
-
-
-# class Mailing(models.Model):
-#     name = models.CharField(max_length=150, verbose_name='наименование')
-#     description = models.CharField(max_length=150, verbose_name='описание')
-#     preview = models.ImageField(upload_to='products/', verbose_name='изображение', **NULLABLE)
-#     category = models.ForeignKey(verbose_name='Категория', to='Category', on_delete=models.DO_NOTHING)
-#     purchase_price = models.IntegerField(verbose_name='цена за покупку')
-#     date_of_creation = models.DateTimeField(default=now, verbose_name='дата создания', **NULLABLE)
-#     last_modified_date = models.DateTimeField(verbose_name='дата последнего изменения', **NULLABLE)
-#     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='автор', on_delete=models.SET_NULL, **NULLABLE)
-#     is_published = models.BooleanField(default=False, verbose_name='продукт опубликован')
 
 
 class Message(models.Model):

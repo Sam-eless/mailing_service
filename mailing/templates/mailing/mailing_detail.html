@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container marketing text-center" xmlns="http://www.w3.org/1999/html">
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-mb-4 mx-auto text-center">
+        <h1 class="display-4">{{ title }}</h1>
+    </div>
+    <div class="row">
+    <div class="col-6">
+        <div class="card">
+        <div class="card-header">Рассылка</div>
+            <div class="card-body">
+                <table class="table">
+                <tr>
+                        <td>Название</td>
+                        <td>{{ object.message_set | title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Название</td>
+                        <td>{{ object.title | title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Статус</td>
+                        <td>{{ object.status| title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата создания</td>
+                        <td>{{ object.date_of_creation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Частота рассылки</td>
+                        <td>{{ object.frequency }}</td>
+
+                    </tr>
+                    {#                                    вывод всех активных версий#}
+                    {#                               {% for version in versions %}#}
+                    {#                                   {% if version.is_active %}#}
+                    {#                                        <tr> <td> Активная версия </td>#}
+                    {#                                            <td> {{ version.version_name }} - {{ version.version_number }}</td></tr>#}
+                    {#                                   {% endif %}#}
+                    {#                                {% endfor %}#}
+
+                    {#                            Вывод последней активной версии, при наличии#}
+                    <tr>
+                        {% if product.get_active_version %}
+                            <p> Активная версия - {{ product.get_active_version }}</p>
+                        {% else %}
+                            <p>Активной версии нет</p>
+                        {% endif %}
+                    </tr>
+
+
+                </table>
+                <div class="card-footer">
+                    <a href="{% url 'mailing:mailing_list' %}" class='btn btn-secondary'> Назад &laquo</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="col-12">
+            <div class="card text-left">
+                <div class="card-header text-center">
+                    Сообщение
+                </div>
+                <div class="card-body">
+
+                    <table class="table">
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                            <tr class="subject-form">
+                                <td>
+                                    {{ form.as_p }}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    </div>
+
+{% endblock %}
