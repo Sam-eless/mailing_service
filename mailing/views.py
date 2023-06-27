@@ -112,6 +112,7 @@ class ClientListView(ListView):
 class ClientDetailView(DetailView):
     model = Client
 
+
 class ClientCreateView(CreateView):
     model = Client
     fields = ('first_name', 'last_name', 'email', 'comment',)
@@ -120,6 +121,7 @@ class ClientCreateView(CreateView):
     extra_context = {
         'title': 'Создание рассылки'
     }
+
 
 class ClientUpdateView(UpdateView):
     model = Client
@@ -130,6 +132,7 @@ class ClientUpdateView(UpdateView):
     extra_context = {
         'title': 'Редактирование'
     }
+
 
 class ClientDeleteView(DeleteView):
     model = Client
