@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container marketing">
+        {% if user.is_authenticated %}
+            <a href="{% url 'mailing:client_create' %}" class="btn btn-dark text-right btn-sm">Добавить клиента</a>
+        {% endif %}
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">{{ title }}</h1>
+
+        </div>
+
+    <div class="row">
+        {{ object }}
+
+        {% for object in object_list %}
+            {% include 'includes/inc_mailing_card_client.html' %}
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}

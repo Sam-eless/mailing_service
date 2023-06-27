@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+<div class="content">
+        <div class="col-lg-6 mb-5">
+            <div class="card text-left">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-success"
+                           value=" {% if object %}Сохранить{% else %}Создать{% endif %}">
+                    <div class="content text-right">
+                        <a href="{% url 'mailing:client_list' %}" class="btn btn-dark btn-sm m-2">Назад</a>
+                    </div>
+                </div>
+            </div>
+</div>
+        </div>
+    </form>
+{% endblock %}

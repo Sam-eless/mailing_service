@@ -1,0 +1,20 @@
+<div class="col-lg-4">
+    <div class="card m-2 text-center">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <h3> {{ object.first_name | title }} {{ object.last_name | title }}</h3>
+                <p> Статус клиента - {% if object.is_active %} Активен {% else %} Неактивен {% endif %}</p>
+{#                {% if user.is_authenticated %}#}
+                <p><a href="{% url 'mailing:client_delete' object.pk %}" class="btn btn-danger text-center btn-sm">Удалить </a>
+                </p>
+                <p><a href="{% url 'mailing:client_update' object.pk %}" class="btn btn-warning text-center btn-sm">Редактировать </a>
+                </p>
+{#                {% endif %}#}
+                <p><a class="btn btn-secondary"
+                      href="{% url 'mailing:client_detail' object.pk %}" role="button">Подробнее &raquo;</a></p>
+
+            </ul>
+        </div>
+    </div>
+
+</div>

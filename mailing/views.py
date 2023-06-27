@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from mailing.forms import MailingForm, MessageForm, MessageDetailForm
+from mailing.forms import MailingForm, MessageForm, MessageDetailForm, ClientForm
 from mailing.models import Mailing, Message, Client
 
 
@@ -102,34 +102,35 @@ class MailingDeleteView(DeleteView):
     success_url = reverse_lazy('mailing:mailing_list')
 
 
-# class ClientListView(ListView):
-#     model = Client
-#     extra_context = {
-#         'title': 'Список рассылок'
-#     }
-#
-#
-# class ClientDetailView(DetailView):
-#     model = Client
-#
-# class ClientCreateView(CreateView):
-#     model = Client
-#     # fields = ('title', 'frequency', 'status',)
-#     form_class = ClientForm
-#     success_url = reverse_lazy('mailing:mailing_list')
-#     extra_context = {
-#         'title': 'Создание рассылки'
-#     }
-#
-# class ClientUpdateView(UpdateView):
-#     model = Client
-#     form_class = ClientForm
-#     template_name = "mailing/mailing_form.html"
-#     success_url = reverse_lazy('mailing:mailing_list')
-#     extra_context = {
-#         'title': 'Редактирование'
-#     }
-#
-# class ClientDeleteView(DeleteView):
-#     model = Client
-#     success_url = reverse_lazy('mailing:mailing_list')
+class ClientListView(ListView):
+    model = Client
+    extra_context = {
+        'title': 'Список клиентов'
+    }
+
+
+class ClientDetailView(DetailView):
+    model = Client
+
+class ClientCreateView(CreateView):
+    model = Client
+    fields = ('first_name', 'last_name', 'email', 'comment',)
+    # form_class = ClientForm
+    success_url = reverse_lazy('mailing:client_list')
+    extra_context = {
+        'title': 'Создание рассылки'
+    }
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    # fields = ('first_name', 'last_name', 'email', 'comment',)
+    form_class = ClientForm
+    template_name = "mailing/client_form.html"
+    success_url = reverse_lazy('mailing:client_list')
+    extra_context = {
+        'title': 'Редактирование'
+    }
+
+class ClientDeleteView(DeleteView):
+    model = Client
+    success_url = reverse_lazy('mailing:mailing_list')

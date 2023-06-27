@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-lg-12 m-5">
+        <div class="card text-left">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    Подтвердите удаление клиента {{ client.first_name }} {{ client.last_name }}
+                    <input type="submit" class="btn btn-outline-danger" value="Подтверждаю">
+                </form>
+                <div class="content text-right">
+                    <a href="{% url 'mailing:client_list' %}" class="btn btn-dark btn-sm m-2">Назад</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
