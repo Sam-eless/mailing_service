@@ -1,0 +1,140 @@
+[
+  {
+    "model": "mailing.client",
+    "pk": 2,
+    "fields": {
+      "first_name": "Тест",
+      "last_name": "Тестов",
+      "email": null,
+      "comment": "Тестовый пользователь",
+      "is_active": true
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 3,
+    "fields": {
+      "first_name": "Жоп",
+      "last_name": "Жопов",
+      "email": null,
+      "comment": "вредный",
+      "is_active": true
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 4,
+    "fields": {
+      "first_name": "Дыр",
+      "last_name": "Дыркин",
+      "email": null,
+      "comment": "ну и ну",
+      "is_active": true
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 6,
+    "fields": {
+      "first_name": "test",
+      "last_name": "test",
+      "email": "iaiznura@gmail.com",
+      "comment": "test",
+      "is_active": true
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 5,
+    "fields": {
+      "date_of_creation": "2023-06-26T18:32:46Z",
+      "start_date": "2023-06-27",
+      "end_date": null,
+      "frequency": "один раз",
+      "status": "Создана",
+      "title": "Говна тестовая",
+      "clients": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 6,
+    "fields": {
+      "date_of_creation": "2023-06-26T18:58:22Z",
+      "start_date": "2023-06-27",
+      "end_date": null,
+      "frequency": "раз в неделю",
+      "status": "Создана",
+      "title": "Формсетное",
+      "clients": [
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 7,
+    "fields": {
+      "date_of_creation": "2023-06-26T18:58:37Z",
+      "start_date": "2023-06-27",
+      "end_date": null,
+      "frequency": "раз в месяц",
+      "status": "Создана",
+      "title": "Третья тестовая",
+      "clients": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 11,
+    "fields": {
+      "date_of_creation": "2023-06-27T11:45:56.649Z",
+      "start_date": "2023-06-27",
+      "end_date": "2024-06-27",
+      "frequency": "раз в день",
+      "status": "Создана",
+      "title": "Тестовая",
+      "clients": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "mailing.message",
+    "pk": 1,
+    "fields": {
+      "subject": "Тестовое сообщение",
+      "message": "Приходи к нам за бесплатным чем-то",
+      "date_of_creation": "2023-06-26T18:37:39Z",
+      "mailing": 5
+    }
+  },
+  {
+    "model": "mailing.message",
+    "pk": 3,
+    "fields": {
+      "subject": "777777777777",
+      "message": "77777777777777",
+      "date_of_creation": "2023-06-26T19:57:16Z",
+      "mailing": 6
+    }
+  },
+  {
+    "model": "mailing.message",
+    "pk": 5,
+    "fields": {
+      "subject": "Привет",
+      "message": "Првиет",
+      "date_of_creation": "2023-06-27T11:45:34Z",
+      "mailing": 11
+    }
+  }
+]
