@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Count
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from mailing.forms import MailingForm, MessageForm, MessageDetailForm, ClientForm, MailingFormManager
-from mailing.models import Mailing, Message, Client
+from mailing.models import Mailing, Message, Client, Attempt
 from users.models import User
 
 
@@ -97,7 +98,7 @@ class MailingUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         mailing = self.get_object()
         if not self.request.user.has_perm('mailing.can_disable_mailings'):
             class_form = MailingForm
-        if self.request.user == mailing.owner:
+        if self.request.user == mailing.owner or self.request.user.is_superuser:
             class_form = MailingForm
         return class_form
 
@@ -178,3 +179,18 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
 class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('mailing:mailing_list')
+
+
+class AttemptListView(LoginRequiredMixin, ListView):
+    model = Attempt
+    extra_context = {
+        'object_list': Attempt.objects.all(),
+        'title': 'Статус рассылок'
+    }
+
+
+class AttemptDetailView(LoginRequiredMixin, DetailView):
+    model = Attempt
+    extra_context = {
+        'title': 'Рассылка'
+    }

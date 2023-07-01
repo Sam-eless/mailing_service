@@ -28,15 +28,6 @@
                         <td>{{ object.frequency }}</td>
 
                     </tr>
-                    {#                                    вывод всех активных версий#}
-                    {#                               {% for version in versions %}#}
-                    {#                                   {% if version.is_active %}#}
-                    {#                                        <tr> <td> Активная версия </td>#}
-                    {#                                            <td> {{ version.version_name }} - {{ version.version_number }}</td></tr>#}
-                    {#                                   {% endif %}#}
-                    {#                                {% endfor %}#}
-
-                    {#                            Вывод последней активной версии, при наличии#}
                     <tr>
                         {% if product.get_active_version %}
                             <p> Активная версия - {{ product.get_active_version }}</p>
@@ -71,7 +62,6 @@
                                     {{ form.as_p }}
                                 </td>
                             </tr>
-
                         {% endfor %}
 
 

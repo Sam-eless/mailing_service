@@ -1,23 +1,53 @@
-<div class="col-lg-4">
-    <div class="card m-2 text-center">
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <h3> {{ object.title | title | truncatechars:18}}</h3>
-                <p> Статус рассылки: {{ object.status }}</p>
-                <p> Создана: {{ object.date_of_creation }}</p>
-                <p> Частота рассылки - {{ object.frequency }} </p>
-                <p> {% if object.is_active %} Рассылка активна {% else %} Рассылка неактивна {% endif %}</p>
-                {% if user.is_authenticated %}
-                <p><a href="{% url 'mailing:mailing_delete' object.pk %}" class="btn btn-danger text-center btn-sm">Удалить </a>
-                </p>
-                <p><a href="{% url 'mailing:mailing_update' object.pk %}" class="btn btn-warning text-center btn-sm">Редактировать </a>
-                </p>
-                {% endif %}
-                <p><a class="btn btn-secondary"
-                      href="{% url 'mailing:mailing_detail' object.pk %}" role="button">Подробнее &raquo;</a></p>
+{#<div class="col-lg-4">#}
+{#    <div class="card m-2 text-center">#}
+{#        <div class="card-body">#}
+{#            <ul class="list-group list-group-flush">#}
+{#                <h3> {{ object.title | title | truncatechars:18}}</h3>#}
+{#                <p> Статус рассылки: {{ object.status }}</p>#}
+{#                <p> Создана: {{ object.date_of_creation }}</p>#}
+{#                <p> Частота рассылки - {{ object.frequency }} </p>#}
+{#                <p> {% if object.is_active %} Рассылка активна {% else %} Рассылка неактивна {% endif %}</p>#}
+{#                {% if user.is_authenticated %}#}
+{#                <p><a href="{% url 'mailing:mailing_delete' object.pk %}" class="btn btn-danger text-center btn-sm">Удалить </a>#}
+{#                </p>#}
+{#                <p><a href="{% url 'mailing:mailing_update' object.pk %}" class="btn btn-warning text-center btn-sm">Редактировать </a>#}
+{#                </p>#}
+{#                {% endif %}#}
+{#                <p><a class="btn btn-secondary"#}
+{#                      href="{% url 'mailing:mailing_detail' object.pk %}" role="button">Подробнее &raquo;</a></p>#}
+{##}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#</div>#}
 
+
+<div class="col-lg-4">
+    <div class="card m-2">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-3">{{ object.title | title | truncatechars:18}}</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Статус рассылки: {{ object.status }}</li>
+                <li class="list-group-item">Создана: {{ object.date_of_creation }}</li>
+                <li class="list-group-item">Частота рассылки: {{ object.frequency }}</li>
+                <li class="list-group-item">{% if object.is_active %}
+                    <span class="text-success">Рассылка активна</span>
+                    {% else %}
+                    <span class="text-danger">Рассылка неактивна</span>
+                    {% endif %}
+                </li>
             </ul>
         </div>
+        <div class="card-footer d-flex">
+            <a class="btn btn-outline-secondary btn-sm ml-auto"
+               href="{% url 'mailing:mailing_detail' object.pk %}" role="button">Подробнее</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'mailing:mailing_update' object.pk %}"
+                   class="btn btn-outline-warning btn-sm ml-auto">Редактировать</a>
+                <a href="{% url 'mailing:mailing_delete' object.pk %}"
+                   class="btn btn-outline-danger btn-sm ml-auto">Удалить</a>
+            {% endif %}
+        </div>
     </div>
-
 </div>

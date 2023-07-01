@@ -16,7 +16,7 @@
                             </tr>
                             <tr>
                                 <td>Почта</td>
-                                <td><p> Почта: {{ object.email }}</p>
+                                <td><p> {% if object.email is None %}Не указана {% else %}{{ object.email }}{% endif %}</p>
                                 </td>
                             </tr>
                             <tr>

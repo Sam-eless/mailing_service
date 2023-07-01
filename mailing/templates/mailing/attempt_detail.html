@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card text-center">
+        <div class="card-header text-center">Email отправки - {{ object.get_email }}</div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <div class="card rounded-3 shadow-sm">
+                        <h6> Время отправки: {{ object.time_of_sent }}</h6>
+                        <h6 class="card-title">Статус доставки: {% if object.status == 'delivered' %} Доставлено {% else %} Не доставлено {% endif %}</h6>
+                            <a class="card-title">Ответ сервера: {{ object.response }}</a>
+                </div>
+            </table>
+        </div>
+            <a href="{% url 'mailing:attempt_list' %}" type="button"
+               class="w-100 btn btn-lg btn-outline-primary">Назад</a>
+    </div>
+{% endblock %}

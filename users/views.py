@@ -24,6 +24,16 @@ class MyLoginView(LoginView):
         'title': 'Авторизация'
     }
 
+    blocked_user_error_url = reverse_lazy('blog:index')
+
+    # Если юзер заблокирован, не авторизуем его и перенаправляем на главную страницу
+    def form_valid(self, form):
+        user = form.get_user()
+        if user.is_blocked:
+            self.request.session.flush()
+            return redirect(self.blocked_user_error_url)
+        return super().form_valid(form)
+
 
 class ProfileUpdateView(UpdateView):
     model = User
@@ -138,4 +148,4 @@ class UserListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         user = get_object_or_404(User, id=user_id)
         user.is_blocked = not user.is_blocked
         user.save()
-        return redirect('user_list')
+        return redirect('users:user_list')

@@ -101,9 +101,16 @@ class Attempt(models.Model):
     response = models.TextField(verbose_name='Ответ сервера', **NULLABLE)
 
     def __str__(self):
-        return f"{self.sending.message.subject} - {self.sent_at}"
+
+        return f"{message.subject} - {self.time_of_sent}"
+
+    def get_email(self):
+        message = Message.objects.get(mailing=self.mailing)
+        # client = Client.objects.get(mailing=self.mailing)
+        client = self.mailing.clients.first()
+        return f'{client.email}'
 
     class Meta:
-        verbose_name = 'Статистика (попытка)'
-        verbose_name_plural = 'Статистики (попытки)'
+        verbose_name = 'Попытка отправки'
+        verbose_name_plural = 'Попытки отправки'
 

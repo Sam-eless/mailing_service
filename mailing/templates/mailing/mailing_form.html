@@ -18,7 +18,7 @@
         </div>
 {#        {% if perms.mailing.change_mailing %}#}
 
-    {% if not perms.mailing.can_disable_mailings %}
+    {% if not perms.mailing.can_disable_mailings or user.is_superuser %}
         <div class="col-12">
             <div class="card text-left">
                 <div class="card-header text-center">
