@@ -25,8 +25,7 @@
                             </tr>
                             {% for object in mailing.list %}
                                 <tr>
-{#                                    <td>{{ object.mailing }}</td>#}
-                                    <td>{% if object.get_email %} {{ object.get_email }} {% else %} Email не указан {% endif %}</td>
+                                    <td>{% if object.get_email %} {{ object.get_email }}{% else %} Email не указан {% endif %}</td>
                                     <td>{{ object.time_of_sent }}</td>
                                     <td>{% if object.status == 'delivered' %} Доставлено {% else %} Не доставлено {% endif %}</td>
                                     <td>
