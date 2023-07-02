@@ -2,7 +2,8 @@
     <div class="card m-2 text-center">
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                <h3> {{ object.first_name | title }} {{ object.last_name | title }}</h3>
+                <h3> {% if object.first_name %}{{ object.first_name | title }} {% endif %}
+                    {% if object.last_name %}{{ object.last_name | title }}{% endif %}</h3>
                 <p> Статус клиента - {% if object.is_active %} Активен {% else %} Неактивен {% endif %}</p>
 {#                {% if user.is_authenticated %}#}
                 <p><a href="{% url 'mailing:client_delete' object.pk %}" class="btn btn-danger text-center btn-sm">Удалить </a>

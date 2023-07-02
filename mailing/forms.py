@@ -47,4 +47,5 @@ class MessageDetailForm(FormStyleMixin, forms.ModelForm):
 class ClientForm(FormStyleMixin, forms.ModelForm):
     class Meta:
         model = Client
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('date_of_creation', 'owner',)

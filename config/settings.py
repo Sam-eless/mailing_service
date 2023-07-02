@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import psycopg2
+import django_crontab
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'mailing',
     'users',
     'blog',
@@ -135,13 +137,13 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 # SERVER_EMAIL = EMAIL_HOST_USER
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
 
-# CRONJOBS = [
-#     ('0 0 * * *', 'mailing.services.cron.scheduled_mailing', '>> /log/cron.log')
-# ]
-
+CRONJOBS = [
+    ('0 10 * * *', 'mailing.services.cron.once_mailing'),
+    ('0 10 * * 0', 'mailing.services.cron.weekly_mailing'),
+    ('0 10 1 * *', 'mailing.services.cron.monthly_mailing')
+]
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/mailing/'
@@ -165,5 +167,3 @@ RQ_QUEUES = {
     },
 }
 SCHEDULER_AUTOSTART = True
-
-

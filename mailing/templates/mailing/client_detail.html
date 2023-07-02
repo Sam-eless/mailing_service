@@ -12,7 +12,8 @@
                         <table class="table">
                             <tr>
                                 <td>Имя</td>
-                                <td>{{ object.first_name | title }} {{ object.last_name | title }}</td>
+                                <td>{% if object.first_name %}{{ object.first_name | title }} {% endif %}
+                    {% if object.last_name %}{{ object.last_name | title }} {% endif %}</td>
                             </tr>
                             <tr>
                                 <td>Почта</td>
@@ -25,7 +26,7 @@
                             </tr>
                             <tr>
                                 <td>Комментарий</td>
-                                <td>{{ object.comment }}</td>
+                                <td> {% if object.comment %}{{ object.comment }}{% endif %}</td>
                             </tr>
                     </table>
 
