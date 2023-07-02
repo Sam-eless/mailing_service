@@ -138,7 +138,10 @@ class MailingDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         mailing = self.get_object()
-        return self.request.user == mailing.owner
+        if self.request.user.is_superuser:
+            return True
+        else:
+            return self.request.user == mailing.owner
 
 
 class ClientListView(LoginRequiredMixin, ListView):
