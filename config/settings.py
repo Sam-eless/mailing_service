@@ -158,12 +158,3 @@ CACHES = {
 }
 
 DJANGO_SETTINGS_MODULE = "mailing.settings"
-
-RQ_QUEUES = {
-    'default': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        'DB': 0,
-    },
-}
-SCHEDULER_AUTOSTART = True
