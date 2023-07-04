@@ -97,7 +97,7 @@ class Attempt(models.Model):
 
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Рассылка')
     time_of_sent = models.DateTimeField(default=now, verbose_name='Время рассылки')
-    status = models.CharField(choices=STATUS, verbose_name='Статус')
+    status = models.CharField(max_length=100, choices=STATUS, verbose_name='Статус')
     response = models.TextField(verbose_name='Ответ сервера', **NULLABLE)
 
     def __str__(self):

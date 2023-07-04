@@ -197,3 +197,6 @@ class AttemptDetailView(LoginRequiredMixin, DetailView):
     extra_context = {
         'title': 'Рассылка'
     }
+
+
+

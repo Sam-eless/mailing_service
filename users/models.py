@@ -25,30 +25,51 @@ class User(AbstractUser):
         permissions = [
             (
                 "can_view_all_user",
-                "Сan view user"
+                "Сan view all user"
             ),
             (
                 "can_change_all_user",
-                "Сan change user"
+                "Сan change all user"
             )
         ]
 
+    @staticmethod
+    def create_manager_group_and_permissions():
+        manager_group, created = Group.objects.get_or_create(name='Менеджеры')
+        if created:
+            # Создание прав доступа для группы модераторов
 
-manager_group, created = Group.objects.get_or_create(name='Менеджеры')
-if created:
-    # Создание прав доступа для группы модераторов
+            # Право на просмотр всех рассылок
+            can_view_any_mailings = Permission.objects.get(codename='can_view_any_mailings')
+            manager_group.permissions.add(can_view_any_mailings)
 
-    # Право на просмотр всех рассылок
-    can_view_any_mailings = Permission.objects.get(codename='can_view_any_mailings')
-    manager_group.permissions.add(can_view_any_mailings)
+            # Право отключение рассылок
+            can_disable_mailings = Permission.objects.get(codename='can_disable_mailings')
+            manager_group.permissions.add(can_disable_mailings)
 
-    # Право отключение рассылок
-    can_disable_mailings = Permission.objects.get(codename='can_disable_mailings')
-    manager_group.permissions.add(can_disable_mailings)
+            # Права управления пользователями
+            can_view_all_user = Permission.objects.get(codename='can_view_all_user')
+            manager_group.permissions.add(can_view_all_user)
 
-    # Права управления пользователями
-    can_view_all_user = Permission.objects.get(codename='can_view_all_user')
-    manager_group.permissions.add(can_view_all_user)
+            can_change_all_user = Permission.objects.get(codename='can_change_all_user')
+            manager_group.permissions.add(can_change_all_user)
 
-    can_change_all_user = Permission.objects.get(codename='can_change_all_user')
-    manager_group.permissions.add(can_change_all_user)
+
+# manager_group, created = Group.objects.get_or_create(name='Менеджеры')
+# if created:
+#     # Создание прав доступа для группы модераторов
+#
+#     # Право на просмотр всех рассылок
+#     can_view_any_mailings = Permission.objects.get(codename='can_view_any_mailings')
+#     manager_group.permissions.add(can_view_any_mailings)
+#
+#     # Право отключение рассылок
+#     can_disable_mailings = Permission.objects.get(codename='can_disable_mailings')
+#     manager_group.permissions.add(can_disable_mailings)
+#
+#     # Права управления пользователями
+#     can_view_all_user = Permission.objects.get(codename='can_view_all_user')
+#     manager_group.permissions.add(can_view_all_user)
+#
+#     can_change_all_user = Permission.objects.get(codename='can_change_all_user')
+#     manager_group.permissions.add(can_change_all_user)

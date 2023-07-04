@@ -29,7 +29,7 @@ class MyLoginView(LoginView):
     # Если юзер заблокирован, не авторизуем его и перенаправляем на главную страницу
     def form_valid(self, form):
         user = form.get_user()
-        if user.is_blocked:
+        if user.is_blocked and not user.is_superuser:
             self.request.session.flush()
             return redirect(self.blocked_user_error_url)
         return super().form_valid(form)
